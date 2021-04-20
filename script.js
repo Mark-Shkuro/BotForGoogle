@@ -1,3 +1,14 @@
+// ==UserScript==
+// @name         Bot for google
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  try to take over the world!
+// @author       You
+// @match        https://www.google.com/*
+// @icon         https://www.google.com/s2/favicons?domain=google.com
+// @grant        none
+// ==/UserScript==
+
 let keywords = ["Гобой","Флейта","Как звучит флейта","Фагот","Кларнет"];
 let keyword = keywords[Math.floor(Math.random()* keywords.length)];
 let btnK = document.getElementsByName('btnK')[1];
