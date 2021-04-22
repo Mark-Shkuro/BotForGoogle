@@ -5,6 +5,8 @@
 // @description  try to take over the world!
 // @author       You
 // @match        https://www.google.com/*
+// @match        https://xn----7sbab5aqcbiddtdj1e1g.xn--p1ai/*
+// @match        https://crushdrummers.ru/*
 // @icon         https://www.google.com/s2/favicons?domain=google.com
 // @grant        none
 // ==/UserScript==
