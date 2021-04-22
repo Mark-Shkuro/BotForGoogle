@@ -9,7 +9,62 @@
 // @grant        none
 // ==/UserScript==
 
-let keywords = ["Гобой","Флейта","Как звучит флейта","Фагот","Кларнет"];
+unction getCookie(name) { /*Функция Куки*/
+  let matches = document.cookie.match(new RegExp(
+    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+  ));
+  return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
+
+let sites = {
+'xn----7sbab5aqcbiddtdj1e1g.xn--p1ai': ["Гобой","Флейта","Как звучит флейта","Фагот","Кларнет"],
+'https://crushdrummers.ru':  ["барабанное шоу crush","crushDrummers","Шоу барабанщиков crush"]
+}
+let site = Object.keys(sites)[Math.floor(Math.random() * Object.keys(sites).length)];
+let keywords = sites[site];
+let keyword = keywords[Math.floor(Math.random()* keywords.length)];
+let btnK = document.getElementsByName('btnK')[1];
+let googleInput = document.getElementsByName('q')[0];
+if (btnK != undefined){ // Главная страница гугл или нет
+    document.cookie = "site = " + site;
+    let i = 0;
+   let timerId = setInterval(function(){
+        googleInput.value += keyword[i++]
+        if(keyword.length == i){
+          clearInterval(timerId);
+          btnK.click();
+        }
+    },500);
+} else if(location.hostname === "www.google.com"){ // Если не на главное,а все еще на сайте google
+    let links = document.links;
+    let goToTheNextPage = true;
+    let currentPage = document.getElementsByClassName("YyVfkd")[0].innerText;
+    site = getCookie('site');
+for(let i = 0; i<links.length; i++){
+    let link = links[i];
+    if(link.href.indexOf(site) != -1){
+    link.click();
+    goToTheNextPage = false;
+    break;
+   }
+ }
+    if(currentPage > 10) location.href = "https://www.google.com/";
+    else if(goToTheNextPage) pnnext.click();
+} else {
+    if(Math.random() > 0.8) location.href = "https://www.google.com/";
+    let links = document.links;
+    setInterval(function() {
+        let index = Math.floor(Math.random()*links.length);
+        let link = links[index];
+        if(link.href.includes(location.hostname)) link.click();
+    },3000);
+
+}
+
+
+// Первый Вариант
+/*let keywords = ["Гобой","Флейта","Как звучит флейта","Фагот","Кларнет"];
 let keyword = keywords[Math.floor(Math.random()* keywords.length)];
 let btnK = document.getElementsByName('btnK')[1];
 if (btnK != undefined){ // Главная страница гугл или нет
@@ -29,4 +84,4 @@ for(let i = 0; i<links.length; i++){
  }
     if(currentPage > 10) location.href = "https://www.google.com/";
 else if(goToTheNextPage) pnnext.click();
-}
+}*/
